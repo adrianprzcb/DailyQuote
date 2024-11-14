@@ -1,4 +1,4 @@
-package com.adrian.DailyQuote
+package com.adrian.dailyquote
 
 import org.junit.Test
 

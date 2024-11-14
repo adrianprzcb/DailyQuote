@@ -1,6 +1,5 @@
-package com.adrian.DailyQuote.ui.theme
+package com.adrian.dailyquote.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

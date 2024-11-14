@@ -1,4 +1,4 @@
-package com.adrian.DailyQuote.ui.theme
+package com.adrian.dailyquote.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
