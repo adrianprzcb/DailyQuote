@@ -41,8 +41,8 @@ fun DailyQuoteScreen(modifier: Modifier = Modifier, currentMode: String) {
     } else {
         quoteResponse?.let {
             Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-                Text(text = it.quote, style = MaterialTheme.typography.h5)
-                Text(text = "- ${it.author}", style = MaterialTheme.typography.subtitle1)
+                Text(text = it.quote, style = MaterialTheme.typography.bodyLarge)
+                Text(text = "- ${it.author}", style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(16.dp))
                 ShareButton(text = it.quote) // Pass quote for sharing
             }
