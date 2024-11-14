@@ -19,7 +19,7 @@ fun MainScreen() {
 
     Column(modifier = Modifier.fillMaxSize()) {
         when (currentMode) {
-            "daily" -> DailyQuoteScreen()
+            "daily" -> DailyQuoteScreen(currentMode = currentMode)
             // Add other mode composables here
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
