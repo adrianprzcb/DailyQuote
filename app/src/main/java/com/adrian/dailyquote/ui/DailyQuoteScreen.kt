@@ -22,16 +22,16 @@ import retrofit2.Retrofit
 
 
 @Composable
-fun DailyQuoteScreen(modifier: Modifier = Modifier, currentMode: String) {
+fun DailyQuoteScreen(modifier: Modifier = Modifier) {
     var quoteResponse by remember { mutableStateOf<QuoteResponse?>(null) }
     var isLoading by remember { mutableStateOf(true) }
 
-    LaunchedEffect(currentMode) {
+    LaunchedEffect(Unit) { // No longer depends on currentMode
         val apiService = Retrofit.Builder()
             .baseUrl("https://api.viewbits.com/v1/")
             .build()
             .create(APIService::class.java)
-        val response = apiService.getQuote("zenquotes/?mode=$currentMode")
+        val response = apiService.getQuote("zenquotes/?mode=daily") // Hardcoded "daily" mode
         quoteResponse = response.body()
         isLoading = false
     }
