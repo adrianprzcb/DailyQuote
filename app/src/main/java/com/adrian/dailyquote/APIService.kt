@@ -7,5 +7,5 @@ import retrofit2.http.Url
 interface APIService {
 
     @GET
-    suspend fun getQuote(@Url url:String): Response<QuoteResponse>
+    suspend fun getQuote(@Url url: String): Response<List<QuoteResponse>>
 }
