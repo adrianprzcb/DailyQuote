@@ -20,16 +20,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
+        setContent()
+        {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     DailyQuoteScreen(modifier = Modifier.padding(innerPadding))
-                    Button(
-                        onClick = { /* Navigate to other screen logic */ },
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    ) {
-                        Text(text = "Go to Other Screen")
-                    }
                 }
             }
         }

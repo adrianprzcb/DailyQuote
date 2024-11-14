@@ -19,33 +19,49 @@ import androidx.compose.ui.unit.dp
 import com.adrian.dailyquote.APIService
 import com.adrian.dailyquote.QuoteResponse
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 
 @Composable
 fun DailyQuoteScreen(modifier: Modifier = Modifier) {
-    var quoteResponse by remember { mutableStateOf<QuoteResponse?>(null) }
+    var quoteResponse by remember { mutableStateOf<List<QuoteResponse>?>(null) }
     var isLoading by remember { mutableStateOf(true) }
 
-    LaunchedEffect(Unit) { // No longer depends on currentMode
+    LaunchedEffect(Unit) { // Fetches quote on launch
         val apiService = Retrofit.Builder()
             .baseUrl("https://api.viewbits.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(APIService::class.java)
-        val response = apiService.getQuote("zenquotes/?mode=daily") // Hardcoded "daily" mode
-        quoteResponse = response.body()
-        isLoading = false
+
+        try {
+            val response = apiService.getQuote("zenquotes/?mode=today")
+            quoteResponse = response
+            isLoading = false
+        } catch (e: Exception) {
+            isLoading = false
+            // Handle error, e.g., display an error message
+        }
     }
 
     if (isLoading) {
         CircularProgressIndicator()
     } else {
-        quoteResponse?.let {
-            Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-                Text(text = it.quote, style = MaterialTheme.typography.bodyLarge)
-                Text(text = "- ${it.author}", style = MaterialTheme.typography.bodyMedium)
-                Spacer(modifier = Modifier.height(16.dp))
-                ShareButton(text = it.quote) // Pass quote for sharing
+        quoteResponse?.let { quotes ->
+            if (quotes.isNotEmpty()) {
+                val firstQuote = quotes.firstOrNull()
+                Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+                    Text(text = firstQuote?.q ?: "", style = MaterialTheme.typography.titleLarge)
+                    Text(text = "- ${firstQuote?.a ?: ""}", style = MaterialTheme.typography.bodyMedium)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    // Add a ShareButton here if needed
+                }
+            } else {
+                Text(text = "No quotes available", style = MaterialTheme.typography.bodyLarge)
             }
+        } ?: run { // Handle no quote received
+            Text(text = "Error fetching quote", style = MaterialTheme.typography.bodyLarge)
         }
     }
 }
