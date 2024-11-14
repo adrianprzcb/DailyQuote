@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MainScreen() {
+fun MainScreen(modifier: Modifier = Modifier) {
     var currentMode by remember { mutableStateOf("daily") }
 
     Column(modifier = Modifier.fillMaxSize()) {
